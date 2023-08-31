@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { Schedule } from './schedules.entity';
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Schedule } from './schedules.entity'
+import { getRounds, hashSync } from 'bcryptjs'
 
 @Entity('users')
 export class User {
@@ -9,7 +10,7 @@ export class User {
     @Column({ length: 45 })
     name: string;
 
-    @Column({ length: 45 })
+    @Column({ length: 45, unique: true })
     email: string;
 
     @Column({ default: false })
@@ -29,4 +30,13 @@ export class User {
 
     @OneToMany(() => Schedule, (schedules) => schedules.user)
     schedule: Schedule[];
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword() {
+        const hasRounds: number = getRounds(this.password)
+        if (!hasRounds) {
+            this.password = hashSync(this.password, 10)
+        }
+    }
 }
