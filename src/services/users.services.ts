@@ -16,9 +16,11 @@ export const listAllUsers = async (): Promise<UserReturn[]> => {
     return userReturnListSchema.parse(users)
 }
 
-export const updateUser = async (body: UserUpdate, id: number): Promise<User> => {
+export const updateUser = async (body: UserUpdate, id: number): Promise<UserReturn> => {
     const user: User | null = await userRepo.findOneBy({ id: id })
-    return await userRepo.save({ ...user, ...body })
+    const newUser: User = await userRepo.save({ ...user, ...body })
+
+    return userReturnSchema.parse(newUser)
 }
 
 export const eraseUser = async (id: number): Promise<void> => {

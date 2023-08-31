@@ -17,4 +17,3 @@ export const updateUserSchema = userWithoutAdmin.partial()
 export const userReturnSchema = userSchema.omit({ password: true })
 export const userReturnListSchema = userReturnSchema.array()
 export const userLoginSchema = userSchema.pick({ email: true, password: true })
-
