@@ -10,6 +10,7 @@ export const listAllCategories = async (): Promise<Category[]> => {
     return await categoryRepo.find()
 }
 
-export const listAllRealEstatesByCategory = async (id: number): Promise<Category| null> => {
-    return await categoryRepo.findOne({ where: { id: id }, relations: { realEstate: true } })
+export const listAllRealEstatesByCategory = async (id: number): Promise<Category> => {
+    const category: Category | null = await categoryRepo.findOne({ where: { id: id }, relations: { realEstate: true } })
+    return category!
 }
