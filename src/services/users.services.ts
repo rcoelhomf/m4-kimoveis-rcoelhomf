@@ -1,5 +1,4 @@
 import { User } from '../entities'
-import { AppError } from '../errors'
 import { UserCreate, UserReturn, UserUpdate } from '../interfaces/users.iterfaces'
 import { userRepo } from '../repositories'
 import { userReturnListSchema, userReturnSchema } from '../schemas/users.schema'

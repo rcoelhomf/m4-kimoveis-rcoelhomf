@@ -6,6 +6,7 @@ import { handleError } from './middlewares/handleErrors'
 import { loginRoute } from './routes/login.routes'
 import { categoriesRoutes } from './routes/categories.routes'
 import { realEstatesRoutes } from './routes/realEstates.routes'
+import { schedulesRoutes } from './routes/schedules.routes'
 
 const app = express()
 app.use(express.json())
@@ -14,6 +15,7 @@ app.use('/users', userRoutes)
 app.use('/login', loginRoute)
 app.use('/categories', categoriesRoutes)
 app.use('/realEstate', realEstatesRoutes)
+app.use('/schedules', schedulesRoutes)
 
 app.use(handleError)
 
