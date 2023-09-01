@@ -12,13 +12,13 @@ export const getAllUsers = async (req: Request, res: Response): Promise<Response
 }
 
 export const patchUser = async (req: Request, res: Response): Promise<Response> => {
-    const { id } = req.params
-    const user = await updateUser(req.body, Number(id))
-    return res.status(200).json(user)
+    const { user } = res.locals
+    const newUser = await updateUser(req.body, user)
+    return res.status(200).json(newUser)
 }
 
 export const deleteUser = async (req: Request, res: Response): Promise<Response> => {
-    const { id } = req.params
-    await eraseUser(Number(id))
+    const { user } = res.locals
+    await eraseUser(user)
     return res.status(204).json()
 }

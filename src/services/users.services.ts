@@ -16,16 +16,12 @@ export const listAllUsers = async (): Promise<UserReturn[]> => {
     return userReturnListSchema.parse(users)
 }
 
-export const updateUser = async (body: UserUpdate, id: number): Promise<UserReturn> => {
-    const user: User | null = await userRepo.findOneBy({ id: id })
+export const updateUser = async (body: UserUpdate, user: User): Promise<UserReturn> => {
     const newUser: User = await userRepo.save({ ...user, ...body })
 
     return userReturnSchema.parse(newUser)
 }
 
-export const eraseUser = async (id: number): Promise<void> => {
-    const user: User | null = await userRepo.findOneBy({ id: id })
-    if(!user) throw new AppError('User not found', 404)
-
+export const eraseUser = async (user: User): Promise<void> => {
     await userRepo.softRemove(user)
 }
