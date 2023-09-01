@@ -14,7 +14,7 @@ export const createNewSchedule = async (body: CreateSchedule, userId: number): P
     await scheduleRepo.save({ ...body, realEstate: realEstate!, user: user! })
 }
 
-export const listAllSchedulesRealEstate = async (id: number): Promise<any> => { 
+export const listAllSchedulesRealEstate = async (id: number): Promise<RealEstate> => { 
     const realEstate = await realEstateRepo.findOne({ where: { id: id }, relations: { schedules: { user: true }, address: true, category: true } })
 
     if(!realEstate) throw new AppError('RealEstate not found', 404)
